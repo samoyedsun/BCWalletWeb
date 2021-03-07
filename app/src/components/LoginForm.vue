@@ -1,30 +1,29 @@
 <template>
     <form class="login_form">
         <div class="login_form_r1">
-            <div class="login_text">
-                <login-textfield label="First name" icon="user" />
-                <login-textfield label="Last name" />
-            </div>
+            <login-textfield v-model="loginForm.user_name" label="User name" icon="user" />
         </div>
         <div class="login_form_r2">
-            <login-textfield label="Email address" icon="envelope-o" />
+            <login-textfield v-model="loginForm.mobile_number" label="Mobile number" icon="mobile" />
         </div>
         <div class="login_form_r3">
-            <login-textfield label="Enter passwords" icon="lock" />
+            <login-textfield v-model="loginForm.password" label="Enter passwords" icon="lock" />
         </div>
         <div class="login_form_r4">
-            <login-textfield label="Re-enter passwords" icon="lock" />
+            <login-textfield v-model="loginForm.re_password" label="Re-enter passwords" icon="lock" />
         </div>
         <div class="login_form_r5">
             <login-checkbox label="Keep me sign in" />
             <label>Forget passwords</label>
         </div>
         <div>
-            <login-submit />
+            <login-submit @click.native="onSubmit" />
         </div>
     </form>
 </template>
 <script>
+import axios from 'axios'
+
 import LoginTextfield from './LoginTextfield'
 import LoginCheckbox from './LoginCheckbox'
 import LoginSubmit from './LoginSubmit'
@@ -33,6 +32,62 @@ export default {
         LoginTextfield,
         LoginCheckbox,
         LoginSubmit
+    },
+    data () {
+        return {
+            loginForm: {
+                user_name: '',
+                mobile_number: '',
+                password: '',
+                re_password: ''
+            }
+        }
+    },
+    methods: {
+        onSubmit () {
+            let loginPageState = this.$parent.getState()
+            if (loginPageState === 1) {
+                // 登陆
+                let reqData = {
+                    mobile_number: this.loginForm.mobile_number,
+                    password: this.loginForm.password
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8203/user/login',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                    data: reqData
+                }).then((res) => {
+                    console.log(res)
+                })
+            } else if (loginPageState === 2) {
+                // 注册
+                let reqData = {
+                    user_name: this.loginForm.user_name,
+                    mobile_number: this.loginForm.mobile_number,
+                    password: this.loginForm.password,
+                    re_password: this.loginForm.re_password
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8203/user/register',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                    data: reqData
+                }).then((res) => {
+                    console.log(res)
+                })
+            }
+
+            // for (var k in this) {
+            //     console.log('=========', k)
+            // }
+        }
     }
 }
 </script>
@@ -46,19 +101,6 @@ export default {
     min-height: 40px;
     justify-content: space-between;
     transition: all .6s ease;
-}
-.login_text {
-    display: flex;
-    flex: 1;
-}
-.login_text .login_textfield {
-    border-radius: 0;
-}
-.login_text .login_textfield:first-child {
-    border-radius: 2px 0 0 2px;
-}
-.login_text .login_textfield:last-child {
-    border-radius: 0 2px 2px 0;
 }
 .login__signup .login_form_r5 {
     opacity: 0;

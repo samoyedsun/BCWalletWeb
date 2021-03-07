@@ -27,6 +27,9 @@ export default {
         }
     },
     methods: {
+        getState () {
+            return this.state
+        },
         switchState () {
             this.state = this.state === 1 ? 2 : 1
         }

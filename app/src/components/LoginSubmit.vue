@@ -1,8 +1,8 @@
 <template>
     <span class="login_button">
         <input type="button" />
-        <label>登陆</label>
-        <label>注册</label>
+        <label>Sign In</label>
+        <label>Sign Up</label>
     </span>
 </template>
 <style>
