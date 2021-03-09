@@ -40,10 +40,34 @@ export default {
                 mobile_number: '',
                 password: '',
                 re_password: ''
-            }
+            },
+            aletMsg: '',
+            displayStsates: 'none'
         }
     },
     methods: {
+        validateMobilePhone (value, callback) {
+            if (value === '') {
+                callback(new Error('手机号不可为空！'))
+            } else {
+                if (value !== '') {
+                    var reg = /^1[3456789]\d{9}$/
+                    if (!reg.test(value)) {
+                        callback(new Error('您输入的手机号无效！'))
+                    }
+                }
+                callback()
+            }
+        },
+        validatePass (value, callback) {
+            if (value === '') {
+                callback(new Error('密码不可为空！'))
+            } else if (value.length < 6) {
+                callback(new Error('密码长度最小6位'))
+            } else {
+                callback()
+            }
+        },
         onSubmit () {
             let loginPageState = this.$parent.getState()
             if (loginPageState === 1) {
@@ -52,16 +76,28 @@ export default {
                     mobile_number: this.loginForm.mobile_number,
                     password: this.loginForm.password
                 }
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8203/user/login',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true,
-                    data: reqData
-                }).then((res) => {
-                    console.log(res)
+                this.validateMobilePhone(this.loginForm.mobile_number, (msg) => {
+                    if (!msg) {
+                        this.validatePass(this.loginForm.password, (msg) => {
+                            if (!msg) {
+                                axios({
+                                    method: 'post',
+                                    url: 'http://localhost:8203/user/login',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    withCredentials: true,
+                                    data: reqData
+                                }).then((res) => {
+                                    this.$toast.success('登陆成功!')
+                                })
+                            } else {
+                                this.$toast.error(msg.toString())
+                            }
+                        })
+                    } else {
+                        this.$toast.error(msg.toString())
+                    }
                 })
             } else if (loginPageState === 2) {
                 // 注册
@@ -71,22 +107,30 @@ export default {
                     password: this.loginForm.password,
                     re_password: this.loginForm.re_password
                 }
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8203/user/register',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true,
-                    data: reqData
-                }).then((res) => {
-                    console.log(res)
+                this.validateMobilePhone(this.loginForm.mobile_number, (msg) => {
+                    if (!msg) {
+                        this.validatePass(this.loginForm.password, (msg) => {
+                            if (!msg) {
+                                axios({
+                                    method: 'post',
+                                    url: 'http://localhost:8203/user/register',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    withCredentials: true,
+                                    data: reqData
+                                }).then((res) => {
+                                    this.$toast.success('注册成功!')
+                                })
+                            } else {
+                                this.$toast.error(msg.toString())
+                            }
+                        })
+                    } else {
+                        this.$toast.error(msg.toString())
+                    }
                 })
             }
-
-            // for (var k in this) {
-            //     console.log('=========', k)
-            // }
         }
     }
 }

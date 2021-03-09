@@ -3,8 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 import 'font-awesome/css/font-awesome.min.css'
+
+Vue.use(VueToast, {
+    position: 'top'
+})
 
 Vue.config.productionTip = false
 
