@@ -1,17 +1,27 @@
 <template>
     <span class="login_textfield">
         <label><i v-if="icon" :class="['fa', `fa-${icon}`]"></i>{{label}}</label>
-        <input type="text" />
+        <input type="text" v-model="inputText" />
     </span>
 </template>
 <script>
 export default {
+    data () {
+        return {
+            inputText: ''
+        }
+    },
     props: {
         label: {
             type: String
         },
         icon: {
             type: String
+        }
+    },
+    methods: {
+        getInputValue () {
+            return this.inputText
         }
     }
 }

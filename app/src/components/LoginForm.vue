@@ -1,16 +1,16 @@
 <template>
     <form class="login_form">
         <div class="login_form_r1">
-            <login-textfield v-model="loginForm.user_name" label="User name" icon="user" />
+            <login-textfield ref="userName" label="User name" icon="user" />
         </div>
         <div class="login_form_r2">
-            <login-textfield v-model="loginForm.mobile_number" label="Mobile number" icon="mobile" />
+            <login-textfield ref="mobileNumber" label="Mobile number" icon="mobile" />
         </div>
         <div class="login_form_r3">
-            <login-textfield v-model="loginForm.password" label="Enter passwords" icon="lock" />
+            <login-textfield ref="password" label="Enter passwords" icon="lock" />
         </div>
         <div class="login_form_r4">
-            <login-textfield v-model="loginForm.re_password" label="Re-enter passwords" icon="lock" />
+            <login-textfield ref="password2" label="Re-enter passwords" icon="lock" />
         </div>
         <div class="login_form_r5">
             <login-checkbox label="Keep me sign in" />
@@ -35,100 +35,110 @@ export default {
     },
     data () {
         return {
-            loginForm: {
-                user_name: '',
-                mobile_number: '',
-                password: '',
-                re_password: ''
-            },
             aletMsg: '',
             displayStsates: 'none'
         }
     },
     methods: {
-        validateMobilePhone (value, callback) {
+        validateUserName (value) {
             if (value === '') {
-                callback(new Error('手机号不可为空！'))
+                return {ok: false, err: '用户名不可为空.'}
             } else {
-                if (value !== '') {
-                    var reg = /^1[3456789]\d{9}$/
-                    if (!reg.test(value)) {
-                        callback(new Error('您输入的手机号无效！'))
-                    }
+                var reg = /^[A-Za-z0-9]{6,16}$/
+                if (!reg.test(value)) {
+                    return {ok: false, err: '用户名必须由 6-16位字母、数字组成.'}
                 }
-                callback()
+                return {ok: true}
             }
         },
-        validatePass (value, callback) {
+        validateMobilePhone (value) {
             if (value === '') {
-                callback(new Error('密码不可为空！'))
-            } else if (value.length < 6) {
-                callback(new Error('密码长度最小6位'))
+                return {ok: false, err: '手机号不可为空.'}
             } else {
-                callback()
+                var reg = /^1[3456789]\d{9}$/
+                if (!reg.test(value)) {
+                    return {ok: false, err: '您输入的手机号无效.'}
+                }
+                return {ok: true}
+            }
+        },
+        validatePassword (value, callback) {
+            if (value === '') {
+                return {ok: false, err: '密码不可为空.'}
+            } else {
+                var reg = /^[A-Za-z0-9]{6,16}$/
+                if (!reg.test(value)) {
+                    return {ok: false, err: '密码必须由 6-16位字母、数字组成.'}
+                }
+                return {ok: true}
             }
         },
         onSubmit () {
             let loginPageState = this.$parent.getState()
-            if (loginPageState === 1) {
-                // 登陆
+            if (loginPageState === 1) { // 登陆
+                let mobileNumberChil = this.$refs.mobileNumber
+                let passwordChil = this.$refs.password
+
                 let reqData = {
-                    mobile_number: this.loginForm.mobile_number,
-                    password: this.loginForm.password
+                    mobile_number: mobileNumberChil.getInputValue(),
+                    password: passwordChil.getInputValue()
                 }
-                this.validateMobilePhone(this.loginForm.mobile_number, (msg) => {
-                    if (!msg) {
-                        this.validatePass(this.loginForm.password, (msg) => {
-                            if (!msg) {
-                                axios({
-                                    method: 'post',
-                                    url: 'http://localhost:8203/user/login',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    withCredentials: true,
-                                    data: reqData
-                                }).then((res) => {
-                                    this.$toast.success('登陆成功!')
-                                })
-                            } else {
-                                this.$toast.error(msg.toString())
-                            }
-                        })
-                    } else {
-                        this.$toast.error(msg.toString())
-                    }
+                let ret = this.validateMobilePhone(reqData.mobile_number)
+                if (!ret.ok) {
+                    return this.$toast.error(ret.err)
+                }
+                ret = this.validatePassword(reqData.password)
+                if (!ret.ok) {
+                    return this.$toast.error(ret.err)
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8203/user/login',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                    data: reqData
+                }).then((res) => {
+                    this.$toast.success('登陆成功!')
                 })
-            } else if (loginPageState === 2) {
-                // 注册
+            } else if (loginPageState === 2) { // 注册
+                let userNameChil = this.$refs.userName
+                let mobileNumberChil = this.$refs.mobileNumber
+                let passwordChil = this.$refs.password
+                let password2Chil = this.$refs.password2
+
                 let reqData = {
-                    user_name: this.loginForm.user_name,
-                    mobile_number: this.loginForm.mobile_number,
-                    password: this.loginForm.password,
-                    re_password: this.loginForm.re_password
+                    user_name: userNameChil.getInputValue(),
+                    mobile_number: mobileNumberChil.getInputValue(),
+                    password: passwordChil.getInputValue(),
+                    password2: password2Chil.getInputValue()
                 }
-                this.validateMobilePhone(this.loginForm.mobile_number, (msg) => {
-                    if (!msg) {
-                        this.validatePass(this.loginForm.password, (msg) => {
-                            if (!msg) {
-                                axios({
-                                    method: 'post',
-                                    url: 'http://localhost:8203/user/register',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    withCredentials: true,
-                                    data: reqData
-                                }).then((res) => {
-                                    this.$toast.success('注册成功!')
-                                })
-                            } else {
-                                this.$toast.error(msg.toString())
-                            }
-                        })
-                    } else {
-                        this.$toast.error(msg.toString())
-                    }
+                let ret = this.validateUserName(reqData.user_name)
+                if (!ret.ok) {
+                    return this.$toast.error(ret.err)
+                }
+                ret = this.validateMobilePhone(reqData.mobile_number)
+                if (!ret.ok) {
+                    return this.$toast.error(ret.err)
+                }
+                ret = this.validatePassword(reqData.password)
+                if (!ret.ok) {
+                    return this.$toast.error(ret.err)
+                }
+                if (reqData.password !== reqData.password2) {
+                    return this.$toast.error('两次密码不一致!')
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8203/user/register',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                    data: reqData
+                }).then((res) => {
+                    this.$toast.success('注册成功!')
                 })
             }
         }
