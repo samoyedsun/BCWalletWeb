@@ -22,8 +22,6 @@
     </form>
 </template>
 <script>
-import axios from 'axios'
-
 import LoginTextfield from './LoginTextfield'
 import LoginCheckbox from './LoginCheckbox'
 import LoginSubmit from './LoginSubmit'
@@ -91,16 +89,15 @@ export default {
                 if (!ret.ok) {
                     return this.$toast.error(ret.err)
                 }
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8203/user/login',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true,
-                    data: reqData
-                }).then((res) => {
-                    this.$toast.success('登陆成功!')
+                this.$api.post('http://localhost:8203/user/login', reqData).then((response) => {
+                    let data = response.data
+                    if (data.code === 20000) {
+                        this.$toast.success(data.err)
+                    } else {
+                        this.$toast.error(data.err)
+                    }
+                }, (error) => {
+                    this.$toast.success(error)
                 })
             } else if (loginPageState === 2) { // 注册
                 let userNameChil = this.$refs.userName
@@ -129,16 +126,15 @@ export default {
                 if (reqData.password !== reqData.password2) {
                     return this.$toast.error('两次密码不一致!')
                 }
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8203/user/register',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true,
-                    data: reqData
-                }).then((res) => {
-                    this.$toast.success('注册成功!')
+                this.$api.post('http://localhost:8203/user/register', reqData).then((response) => {
+                    let data = response.data
+                    if (data.code === 20000) {
+                        this.$toast.success(data.err)
+                    } else {
+                        this.$toast.error(data.err)
+                    }
+                }, (error) => {
+                    this.$toast.error(error)
                 })
             }
         }

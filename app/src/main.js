@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import api from './lib/api'
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 import 'font-awesome/css/font-awesome.min.css'
+
+Vue.prototype.$api = api
 
 Vue.use(VueToast, {
     position: 'top'
