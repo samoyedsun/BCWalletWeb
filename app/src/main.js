@@ -16,6 +16,11 @@ Vue.use(VueToast, {
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+    window.document.title = to.meta.title
+    next()
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

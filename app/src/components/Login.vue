@@ -1,15 +1,21 @@
 <template>
     <div class="login" :class="{ login__signin: isSignIn, login__signup: isSignUp}">
+        <home-header />
         <login-tabs @click.native="switchState" />
         <login-form />
+        <home-bottom />
     </div>
 </template>
 
 <script>
+import HomeHeader from './HomeHeader'
+import HomeBottom from './HomeBottom'
 import LoginTabs from './LoginTabs'
 import LoginForm from './LoginForm'
 export default {
     components: {
+        HomeHeader,
+        HomeBottom,
         LoginTabs,
         LoginForm
     },

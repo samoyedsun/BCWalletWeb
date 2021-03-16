@@ -20,6 +20,6 @@ export default {
     margin-top: 60px;
 }
 body {
-    background-color: #097fff;
+    background-color: #191925;
 }
 </style>

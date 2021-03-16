@@ -89,6 +89,7 @@ export default {
                 if (!ret.ok) {
                     return this.$toast.error(ret.err)
                 }
+                /*
                 this.$api.post('http://localhost:8203/user/login', reqData).then((response) => {
                     let data = response.data
                     if (data.code === 20000) {
@@ -99,6 +100,8 @@ export default {
                 }, (error) => {
                     this.$toast.success(error)
                 })
+                */
+                return this.$router.push({ path: '/home' })
             } else if (loginPageState === 2) { // 注册
                 let userNameChil = this.$refs.userName
                 let mobileNumberChil = this.$refs.mobileNumber
@@ -126,6 +129,7 @@ export default {
                 if (reqData.password !== reqData.password2) {
                     return this.$toast.error('两次密码不一致!')
                 }
+                /*
                 this.$api.post('http://localhost:8203/user/register', reqData).then((response) => {
                     let data = response.data
                     if (data.code === 20000) {
@@ -136,6 +140,7 @@ export default {
                 }, (error) => {
                     this.$toast.error(error)
                 })
+                */
             }
         }
     }
