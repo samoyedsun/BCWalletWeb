@@ -1,16 +1,16 @@
 <template>
     <form class="login_form">
         <div class="login_form_r1">
-            <login-textfield ref="userName" label="User name" icon="user" />
+            <login-textfield ref="userName" label="用户名" icon="user" />
         </div>
         <div class="login_form_r2">
-            <login-textfield ref="mobileNumber" label="Mobile number" icon="mobile" />
+            <login-textfield ref="mobileNumber" label="手机号" icon="mobile" />
         </div>
         <div class="login_form_r3">
-            <login-textfield ref="password" label="Enter passwords" icon="lock" />
+            <login-textfield ref="password" label="密码" icon="lock" />
         </div>
         <div class="login_form_r4">
-            <login-textfield ref="password2" label="Re-enter passwords" icon="lock" />
+            <login-textfield ref="password2" label="密码" icon="lock" />
         </div>
         <div class="login_form_r5">
             <login-checkbox label="Keep me sign in" />

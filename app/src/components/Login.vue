@@ -1,6 +1,5 @@
 <template>
     <div class="login" :class="{ login__signin: isSignIn, login__signup: isSignUp}">
-        <home-header />
         <login-tabs @click.native="switchState" />
         <login-form />
         <home-bottom />
@@ -47,5 +46,6 @@ export default {
     width: 100%;
     color: white;
     font-size: 14px;
+    font-weight: bold;
 }
 </style>

@@ -57,32 +57,32 @@ export default {
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 9,
                     name: 'CG北京赛车',
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 10,
                     name: 'CG北京赛车',
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 11,
                     name: 'CG北京赛车',
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 12,
                     name: 'CG北京赛车',
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 13,
                     name: 'CG北京赛车',
                     time: '02:33'
                 },
                 {
-                    id: 8,
+                    id: 14,
                     name: 'CG北京赛车',
                     time: '02:33'
                 }
@@ -131,11 +131,11 @@ export default {
     margin: 1.5%;
 }
 .opacity{
-    opacity: 0.4;
+    opacity: 0.1;
     background: #e5e5e5;
 }
 .name{
-    font-weight:bold;
+    font-weight: bold;
     color: rgba(255, 255, 255, 0.8);
 }
 .time{
@@ -145,5 +145,6 @@ export default {
     margin-bottom: 3px;
     border-radius: 14px 14px 14px 14px;
     display: block;
+    font-weight: bold;
 }
 </style>

@@ -1,8 +1,14 @@
 <template>
     <div class="home-header">
-        <router-link class="tab-item" to="/login" active-class="isActive">
-            <div class="item-wrap">登陆</div>
-        </router-link>
+        <div class="online">
+            <span>在线:</span>
+            <span>9999</span>
+        </div>
+        <div class="login-btn">
+            <router-link class="login-btn-link" to="/login">
+                <span>登陆</span>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -38,30 +44,41 @@ export default {
     height: 52px;
     padding: 0 0 constant(safe-area-inset-bottom);
     padding: 0 0 env(safe-area-inset-bottom);
-    border-radius: 0px 0px 0px 0px;
     -webkit-box-shadow: inset 0 1px 3px 0 #636798;
     box-shadow: inset 0 1px 3px 0 #636798;
     background-color: #2a2c45;
-    z-index: 131;
+    z-index: 10;
 }
-.isActive{
-    color:rgb(240, 4, 4);
+.online{
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 14px;
+    font-weight: bold;
 }
-.tab-item{
+.login-btn{
     flex:1;
-    font-size:22px;
-    height:100%;
+    border: 0 solid #fc5;
+    background-color: #fc5;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 104px;
+    height: 30px;
+    border-radius: 5px;
 }
-.item-wrap{
+.login-btn-link{
     width:100%;
     height:100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    font-weight: bold;
 }
 a{
     text-decoration:none;
-    color:#72759f;
+    color: #000;
 }
 a,a:hover,a:active,a:visited,a:link,a:focus{
     -webkit-tap-highlight-color:rgba(9, 230, 1, 0.945);
