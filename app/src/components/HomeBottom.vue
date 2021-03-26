@@ -46,7 +46,6 @@ export default {
     -webkit-box-shadow: inset 0 1px 3px 0 #636798;
     box-shadow: inset 0 1px 3px 0 #636798;
     background-color: #2a2c45;
-    z-index: 131;
 }
 .isActive{
     color:rgb(240, 4, 4);

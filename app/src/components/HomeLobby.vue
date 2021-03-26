@@ -125,10 +125,10 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #072a42;
     width: 30%;
     border-radius: 5px;
     margin: 1.5%;
+    background: #2a2c45;
 }
 .opacity{
     opacity: 0.1;
@@ -136,12 +136,12 @@ export default {
 }
 .name{
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(243, 239, 7);
 }
 .time{
     width: 80%;
     height: 30px;
-    color: #4674cb;
+    color: #53f708;
     margin-bottom: 3px;
     border-radius: 14px 14px 14px 14px;
     display: block;

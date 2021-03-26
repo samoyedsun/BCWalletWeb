@@ -39,15 +39,9 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    bottom: auto;
     width: 100%;
-    height: 52px;
-    padding: 0 0 constant(safe-area-inset-bottom);
-    padding: 0 0 env(safe-area-inset-bottom);
-    -webkit-box-shadow: inset 0 1px 3px 0 #636798;
-    box-shadow: inset 0 1px 3px 0 #636798;
+    height: 50px;
     background-color: #2a2c45;
-    z-index: 10;
 }
 .online{
     position: absolute;
@@ -55,11 +49,12 @@ export default {
     top: 15px;
     font-size: 14px;
     font-weight: bold;
+    color: #53f708;
 }
 .login-btn{
     flex:1;
-    border: 0 solid #fc5;
-    background-color: #fc5;
+    border: 0 solid rgb(243, 239, 7);
+    background-color: rgb(243, 239, 7);
     position: absolute;
     right: 10px;
     top: 10px;
