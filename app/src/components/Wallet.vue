@@ -1,7 +1,6 @@
 <template>
     <div class="wallet">
         <home-header />
-        <router-view></router-view>
         我是钱包
         <home-bottom />
     </div>

@@ -1,10 +1,12 @@
 <template>
     <form class="login_form">
         <div class="login_form_r1">
-            <login-textfield ref="userName" label="用户名" icon="user" />
+            <!--
+            <login-textfield ref="mobileNumber" label="用户名" icon="user" />
+            -->
         </div>
         <div class="login_form_r2">
-            <login-textfield ref="mobileNumber" label="手机号" icon="mobile" />
+            <login-textfield ref="userName" label="用户名" icon="mobile" />
         </div>
         <div class="login_form_r3">
             <login-textfield ref="password" label="密码" icon="lock" />
@@ -74,14 +76,14 @@ export default {
         onSubmit () {
             let loginPageState = this.$parent.getState()
             if (loginPageState === 1) { // 登陆
-                let mobileNumberChil = this.$refs.mobileNumber
+                let userNameChil = this.$refs.userName
                 let passwordChil = this.$refs.password
 
                 let reqData = {
-                    mobile_number: mobileNumberChil.getInputValue(),
+                    username: userNameChil.getInputValue(),
                     password: passwordChil.getInputValue()
                 }
-                let ret = this.validateMobilePhone(reqData.mobile_number)
+                let ret = this.validateUserName(reqData.username)
                 if (!ret.ok) {
                     return this.$toast.error(ret.err)
                 }
@@ -96,27 +98,21 @@ export default {
                     } else {
                         this.$toast.error(data.err)
                     }
-                }, (error) => {
-                    this.$toast.success(error)
+                }, (err) => {
+                    this.$toast.success(err)
                 })
                 return this.$router.push({ path: '/home' })
             } else if (loginPageState === 2) { // 注册
                 let userNameChil = this.$refs.userName
-                let mobileNumberChil = this.$refs.mobileNumber
                 let passwordChil = this.$refs.password
                 let password2Chil = this.$refs.password2
 
                 let reqData = {
-                    user_name: userNameChil.getInputValue(),
-                    mobile_number: mobileNumberChil.getInputValue(),
+                    username: userNameChil.getInputValue(),
                     password: passwordChil.getInputValue(),
                     password2: password2Chil.getInputValue()
                 }
-                let ret = this.validateUserName(reqData.user_name)
-                if (!ret.ok) {
-                    return this.$toast.error(ret.err)
-                }
-                ret = this.validateMobilePhone(reqData.mobile_number)
+                let ret = this.validateUserName(reqData.username)
                 if (!ret.ok) {
                     return this.$toast.error(ret.err)
                 }
@@ -125,7 +121,8 @@ export default {
                     return this.$toast.error(ret.err)
                 }
                 if (reqData.password !== reqData.password2) {
-                    return this.$toast.error('两次密码不一致!')
+                    let err = '两次密码不一致!'
+                    return this.$toast.error(err)
                 }
                 this.$api.post('http://localhost:8203/user/register', reqData).then((response) => {
                     let data = response.data
@@ -134,8 +131,8 @@ export default {
                     } else {
                         this.$toast.error(data.err)
                     }
-                }, (error) => {
-                    this.$toast.error(error)
+                }, (err) => {
+                    this.$toast.error(err)
                 })
             }
         }

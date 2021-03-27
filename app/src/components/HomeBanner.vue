@@ -39,7 +39,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .home-banner{
     width: 100%;
     height: 150px;

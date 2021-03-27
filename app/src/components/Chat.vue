@@ -1,7 +1,6 @@
 <template>
     <div class="chat">
         <home-header />
-        <router-view></router-view>
         我是聊天页
         <home-bottom />
     </div>

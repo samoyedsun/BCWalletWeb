@@ -5,11 +5,19 @@ import Home from '@/components/Home'
 import Chat from '@/components/Chat'
 import Me from '@/components/Me'
 import Wallet from '@/components/Wallet'
+import LotteryJiSuShiShiCai from '@/components/lottery/JiSuShiShiCai'
 
 Vue.use(Router)
 
 export default new Router({
     routes: [
+        {
+            path: '/lottery/jisushishicai',
+            meta: {
+                title: '极速时时彩'
+            },
+            component: LotteryJiSuShiShiCai
+        },
         {
             path: '/login',
             meta: {

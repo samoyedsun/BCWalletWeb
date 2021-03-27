@@ -2,7 +2,6 @@
     <div class="home">
         <home-header />
         <home-banner />
-        <router-view></router-view>
         <home-lobby />
         <home-bottom />
     </div>

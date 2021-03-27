@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div class="item" :class="curSelect==sudoku.id?'opacity':''" v-for="(sudoku,index) in sudokus" :key="index" @touchstart="touchstart(index)" @touchend="touchend">
+        <div class="item" :class="curSelect==sudoku.id?'opacity':''" v-for="(sudoku,index) in lotteries" :key="index" @touchstart="touchstart(index)" @touchend="touchend()">
             <span class="name">{{sudoku.name}}</span>
             <span class="time">{{sudoku.time}}</span>
         </div>
@@ -10,25 +10,26 @@
 export default {
     data () {
         return {
-            sudokus: [
+            lotteries: [
                 {
                     id: 0,
-                    name: '重庆时时彩',
-                    time: '02:33'
+                    name: '极速时时彩',
+                    time: '02:33',
+                    pagePath: '/lottery/jisushishicai'
                 },
                 {
                     id: 1,
-                    name: '广东快乐十分',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 2,
-                    name: '北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 3,
-                    name: '北京快乐8',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
@@ -38,52 +39,52 @@ export default {
                 },
                 {
                     id: 5,
-                    name: '极速赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 6,
-                    name: '快乐时时彩',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 7,
-                    name: '新疆时时彩',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 8,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 9,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 10,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 11,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 12,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 13,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 },
                 {
                     id: 14,
-                    name: 'CG北京赛车',
+                    name: '敬请期待!',
                     time: '02:33'
                 }
             ],
@@ -94,18 +95,27 @@ export default {
 
     },
     methods: {
-        touchstart (e) {
+        touchstart (index) {
             var that = this
-            var list = that.sudokus
+            var list = that.lotteries
             for (var i = 0, len = list.length; i < len; ++i) {
-                if (list[i].id === e) {
+                if (list[i].id === index) {
                     that.curSelect = i
                 }
             }
         },
         touchend () {
             var that = this
+            var list = that.lotteries
+            var slotInfo = list[that.curSelect]
+            if (!slotInfo) return
             that.curSelect = null
+
+            if (!slotInfo.pagePath) {
+                let err = '功能开发中..., 敬请期待!'
+                return that.$toast.default(err)
+            }
+            that.$router.push({ path: slotInfo.pagePath })
         }
     }
 }

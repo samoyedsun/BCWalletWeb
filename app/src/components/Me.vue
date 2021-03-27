@@ -1,7 +1,6 @@
 <template>
     <div class="me">
         <home-header />
-        <router-view></router-view>
         我是我的
         <home-bottom />
     </div>
