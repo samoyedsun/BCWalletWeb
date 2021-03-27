@@ -6,6 +6,11 @@
                     <span>清空</span>
                 </router-link>
             </div>
+            <div class="submit-btn">
+                <router-link class="login-btn-link" to="/login">
+                    <span>提交</span>
+                </router-link>
+            </div>
             <div class="withdraw-btn">
                 <router-link class="login-btn-link" to="/login">
                     <span>撤回</span>
@@ -66,8 +71,6 @@ export default {
     height:100%;
 }
 .bottom-base{
-    display: flex;
-    flex: 1;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -77,31 +80,38 @@ export default {
     background-color: rgba(42,44,69,1);
 }
 .clear-btn{
-    flex:1;
     position: absolute;
     bottom: 10px;
     right: 10%;
-    width:30%;
-    height:30px;
+    width: 20%;
+    height: 30px;
     border-radius: 5px;
-    background-color: rgb(93, 55, 230);
+    background-color: burlywood;
+}
+.submit-btn{
+    position: absolute;
+    bottom: 10px;
+    left: 40%;
+    width: 20%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: burlywood;
 }
 .withdraw-btn{
-    flex:1;
     position: absolute;
     bottom: 10px;
     left: 10%;
-    width:30%;
-    height:30px;
+    width: 20%;
+    height: 30px;
     border-radius: 5px;
-    background-color: rgb(93, 55, 230);
+    background-color: burlywood;
 }
 .login-btn-link{
+    float: right;
     width:100%;
     height:100%;
     font-size: 22px;
-    font-weight: bold;
     text-decoration:none;
-    color: rgb(248, 245, 245);
+    color: black;
 }
 </style>

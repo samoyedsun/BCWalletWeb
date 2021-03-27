@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="home-lobby">
         <div class="item" :class="curSelect==sudoku.id?'opacity':''" v-for="(sudoku,index) in lotteries" :key="index" @touchstart="touchstart(index)" @touchend="touchend()">
             <span class="name">{{sudoku.name}}</span>
             <span class="time">{{sudoku.time}}</span>
@@ -122,13 +122,16 @@ export default {
 </script>
 <style >
 * { padding: 0; margin: 0; }
-.main{
+.home-lobby{
     display: flex;
     align-items: center;
     width: 100%;
     flex-wrap: wrap;
     overflow: auto;
     height: 300px;
+}
+.home-lobby::-webkit-scrollbar{
+    display: none;
 }
 .item{
     display: flex;

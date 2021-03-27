@@ -26,7 +26,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -37,7 +40,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -48,7 +54,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -59,7 +68,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -70,7 +82,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -81,7 +96,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -92,7 +110,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-title">
@@ -106,7 +127,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -117,7 +141,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -128,7 +155,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-body">
@@ -139,7 +169,10 @@
                         1.9999
                     </div>
                     <div class="right-slot">
-                        0
+                        <div class="chip_icon">
+                            <img class="chip_icon_img" :src="img_chip_icon"/>
+                        </div>
+                        <span class="chip_num">0</span>
                     </div>
                 </div>
                 <div class="betting-slot-title">
@@ -153,6 +186,7 @@
 export default {
     data () {
         return {
+            img_chip_icon: require('@/assets/chip_icon.png')
         }
     },
     components: {
@@ -168,17 +202,16 @@ export default {
     position:absolute;
     top:50px;
     bottom:75px;
-    background-color:red;
+    background-color:#fff;
 }
 .lobby-upper{
     width: 100%;
     height: 20%;
-    background-color: rgb(2, 2, 24);
+    background-color: #191925;
 }
 .lobby-lower{
     width: 100%;
     height: 80%;
-    background-color: rgb(0, 255, 0);
 }
 .lobby-lower-left{
     float:left;
@@ -186,13 +219,14 @@ export default {
     height: 100%;
     background-color: #191925;
 }
-.betting-module{
-    margin: 0 auto;
+.lobby-lower-left .betting-module{
+    margin-bottom:1px;
     width: 100%;
     height: 80px;
     text-align: left;
     line-height: 80px;
-    border: 1px solid #2bff00;
+    color: black;
+    background-color: burlywood;
 }
 .lobby-lower-right{
     float:right;
@@ -201,7 +235,11 @@ export default {
     overflow: auto;
     background-color: #191925;
 }
+.lobby-lower-right::-webkit-scrollbar{
+    display: none;
+}
 .betting-slot-title{
+    margin-bottom:0.1px;
     width: 100%;
     height: 35px;
     display: flex;
@@ -209,51 +247,61 @@ export default {
     align-items: center;
     font-size: 16px;
     font-weight: bold;
-    background-color: #191925;
+    color: burlywood;
 }
 .betting-slot-body{
+    margin-bottom:0.1px;
     width: 100%;
     height: 50px;
-    background-color: #191925;
 }
 .betting-slot-body .left-slot{
     float: left;
-    margin: 1%;
-    width: 30%;
+    width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    font-size: 20px;
+    font-size: 10px;
     font-weight: bold;
-    color: rgb(243, 239, 7);
+    color: burlywood;
 }
 .betting-slot-body .middle-slot{
     float: left;
-    margin: 1%;
-    width: 30%;
+    width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    font-size: 20px;
-    font-weight: bold;
-    color: #2bff00;
+    font-size: 10px;
+    color: yellow;
 }
 .betting-slot-body .right-slot{
     float: left;
-    margin: 1%;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 5px 0 burlywood;
+}
+.betting-slot-body .right-slot .chip_icon{
+    float: left;
     width: 30%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+}
+.betting-slot-body .right-slot .chip_icon .chip_icon_img{
+    width: 50%;
+    height: 50%;
+}
+.betting-slot-body .right-slot .chip_num{
+    float: right;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
     font-size: 20px;
-    font-weight: bold;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 5px 0 #2bff00;
+    color: yellow;
 }
 </style>
