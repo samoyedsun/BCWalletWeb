@@ -20,72 +20,72 @@ export default {
                 {
                     id: 1,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 2,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 3,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 4,
-                    name: '幸运飞艇',
-                    time: '02:33'
+                    name: '敬请期待!',
+                    time: '--:--'
                 },
                 {
                     id: 5,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 6,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 7,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 8,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 9,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 10,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 11,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 12,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 13,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 },
                 {
                     id: 14,
                     name: '敬请期待!',
-                    time: '02:33'
+                    time: '--:--'
                 }
             ],
             curSelect: null
@@ -149,7 +149,7 @@ export default {
 }
 .name{
     font-weight: bold;
-    color: rgb(243, 239, 7);
+    color: burlywood;
 }
 .time{
     width: 80%;

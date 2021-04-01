@@ -1,6 +1,6 @@
 <template>
     <div class="home-bottom">
-        <router-link v-for="(item,index) in tabbarList" :key="index" class="tab-item" :to="item.path" active-class="isActive">
+        <router-link v-for="(item, index) in tabbarList" :key="index" class="tab-item" :to="item.path" active-class="isActive">
             <div class="item-wrap">{{item.name}}</div>
         </router-link>
     </div>
@@ -64,7 +64,7 @@ export default {
 }
 a{
     text-decoration:none;
-    color:#72759f;
+    color:burlywood;
 }
 a,a:hover,a:active,a:visited,a:link,a:focus{
     -webkit-tap-highlight-color:rgba(9, 230, 1, 0.945);

@@ -1,6 +1,6 @@
 <template>
     <div class="home-banner">
-        <img v-for="(item,index) in imgArray"  :key="index"  :src="item" v-show="n==index"/>
+        <img v-for="(item, index) in imgArray"  :key="index"  :src="item" v-show="n==index"/>
     </div>
 </template>
 

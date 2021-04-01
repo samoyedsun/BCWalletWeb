@@ -6,19 +6,19 @@
                     <span>清空</span>
                 </router-link>
             </div>
-            <div class="submit-btn">
-                <router-link class="login-btn-link" to="/login">
-                    <span>提交</span>
-                </router-link>
-            </div>
             <div class="withdraw-btn">
                 <router-link class="login-btn-link" to="/login">
                     <span>撤回</span>
                 </router-link>
             </div>
+            <div class="detail-btn">
+                <router-link class="login-btn-link" to="/login">
+                    <span>明细</span>
+                </router-link>
+            </div>
         </div>
         <div class="bottom-chip">
-            <div v-for="(item,index) in tabbarList" class="tab-item" :key="index">
+            <div v-for="(item, index) in tabbarList" class="tab-item" :key="index">
                 <img class="item-wrap" :src="item.img">
             </div>
         </div>
@@ -76,10 +76,10 @@ export default {
     width: 100%;
     height: 75px;
     border-radius: 14px 14px 0 0;
-    box-shadow: inset 0 1px 10px 0 #2bff00;
+    box-shadow: inset 0 1px 10px 0 burlywood;
     background-color: rgba(42,44,69,1);
 }
-.clear-btn{
+.detail-btn{
     position: absolute;
     bottom: 10px;
     right: 10%;
@@ -88,7 +88,7 @@ export default {
     border-radius: 5px;
     background-color: burlywood;
 }
-.submit-btn{
+.clear-btn{
     position: absolute;
     bottom: 10px;
     left: 40%;
