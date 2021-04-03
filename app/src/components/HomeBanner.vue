@@ -10,9 +10,9 @@ export default {
         return {
             n: 0, // 默认图片是第一张开始
             imgArray: [
-                require('@/assets/mob_banner1.png'),
-                require('@/assets/mob_banner2.png'),
-                require('@/assets/mob_banner3.png')
+                require('@/assets/mob-banner1.png'),
+                require('@/assets/mob-banner2.png'),
+                require('@/assets/mob-banner3.png')
             ] // 获取图片位置
         }
     },
