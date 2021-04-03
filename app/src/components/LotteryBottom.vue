@@ -6,9 +6,9 @@
                     <span>清空</span>
                 </router-link>
             </div>
-            <div class="withdraw-btn">
+            <div class="chat-btn">
                 <router-link class="login-btn-link" to="/login">
-                    <span>撤回</span>
+                    <span>聊天</span>
                 </router-link>
             </div>
             <div class="detail-btn">
@@ -18,9 +18,7 @@
             </div>
         </div>
         <div class="bottom-chip">
-            <div v-for="(item, index) in tabbarList" class="tab-item" :key="index">
-                <img class="item-wrap" :src="item.img">
-            </div>
+            <img class="tab-item" :class="currChip==item.value?'tab-item-selected':''" v-for="(item, index) in chipList" :key="index" :src="item.img" v-on:click="setCurrChip(item.value)">
         </div>
     </div>
 </template>
@@ -29,18 +27,29 @@
 export default {
     data () {
         return {
-            tabbarList: [
-                {name: '主页', path: '/home', img: require('@/assets/chip1.png')},
-                {name: '钱包', path: '/wallet', img: require('@/assets/chip5.png')},
-                {name: '钱包', path: '/wallet', img: require('@/assets/chip10.png')},
-                {name: '钱包', path: '/wallet', img: require('@/assets/chip50.png')},
-                {name: '聊天', path: '/chat', img: require('@/assets/chip100.png')},
-                {name: '聊天', path: '/chat', img: require('@/assets/chip500.png')},
-                {name: '我的', path: '/me', img: require('@/assets/chip1000.png')}
+            currChip: null,
+            chipList: [
+                {value: 1, img: require('@/assets/chip1.png')},
+                {value: 5, img: require('@/assets/chip5.png')},
+                {value: 10, img: require('@/assets/chip10.png')},
+                {value: 50, img: require('@/assets/chip50.png')},
+                {value: 100, img: require('@/assets/chip100.png')},
+                {value: 500, img: require('@/assets/chip500.png')},
+                {value: 1000, img: require('@/assets/chip1000.png')}
             ]
         }
     },
     methods: {
+        setCurrChip (chip) {
+            this.currChip = chip
+        },
+        getCurrChip () {
+            return this.currChip
+        }
+    },
+    created () {
+        let currChip = 1
+        this.setCurrChip(currChip)
     }
 }
 </script>
@@ -63,12 +72,25 @@ export default {
     background-color: rgba(255,255,255,0);
 }
 .tab-item{
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
-.item-wrap{
-    max-width:100%;
-    height:100%;
+.tab-item-selected{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid green;
+    animation: curr-chip 2s linear infinite;
+}
+/* 渐变动画 */
+@keyframes curr-chip{
+    from{
+        transform: rotate(0deg);
+        filter: hue-rotate(0deg);
+    }to{
+        transform: rotate(360deg);
+        filter: hue-rotate(360deg);
+    }
 }
 .bottom-base{
     position: absolute;
@@ -97,7 +119,7 @@ export default {
     border-radius: 5px;
     background-color: burlywood;
 }
-.withdraw-btn{
+.chat-btn{
     position: absolute;
     bottom: 10px;
     left: 10%;

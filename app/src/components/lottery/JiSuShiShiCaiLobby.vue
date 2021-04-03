@@ -252,6 +252,12 @@ export default {
     },
     components: {
     },
+    props: {
+        fatherMethod: {
+            type: Function,
+            default: null
+        }
+    },
     methods: {
         showFamily (family) {
             this.family = family
@@ -281,11 +287,12 @@ export default {
             return false
         },
         betting (kind, slot, amount) {
+            var currChip = this.$parent.getCurrChip()
             var reqData = {
                 game_type: this.gameType,
                 kind: kind,
                 slot: slot,
-                amount: amount + 100
+                amount: amount + currChip
             }
             this.$api.post('http://localhost:8203/lottery/betting', reqData).then((response) => {
                 let data = response.data

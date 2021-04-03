@@ -2,7 +2,7 @@
     <div class="ji-su-shi-shi-cai">
         <lottery-header />
         <ji-su-shi-shi-cai-lobby />
-        <lottery-bottom />
+        <lottery-bottom ref = "lotteryBottom" />
     </div>
 </template>
 
@@ -18,10 +18,13 @@ export default {
     },
     data () {
         return {
-
+            hello000000dfsdf: 232342
         }
     },
-    mounted () {
+    methods: {
+        getCurrChip () {
+            return this.$refs.lotteryBottom.getCurrChip()
+        }
     }
 }
 </script>
