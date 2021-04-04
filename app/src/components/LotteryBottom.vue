@@ -79,15 +79,48 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 3px solid green;
     animation: curr-chip 2s linear infinite;
 }
-/* 渐变动画 */
-@keyframes curr-chip{
+/* 光圈渐变动画 */
+@keyframes curr-chip {
+    0%{
+        box-shadow: 0 0 0px #6DD5FA
+    }
+    10%{
+        box-shadow: 0 0 10px #6DD5FA
+    }
+    20%{
+        box-shadow: 0 0 20px #6DD5FA
+    }
+    30%{
+        box-shadow: 0 0 30px #6DD5FA
+    }
+    40%{
+        box-shadow: 0 0 40px #6DD5FA
+    }
+    50%{
+        box-shadow: 0 0 50px #6DD5FA
+    }
+    60%{
+        box-shadow: 0 0 40px #6DD5FA
+    }
+    70%{
+        box-shadow: 0 0 30px #6DD5FA
+    }
+    80%{
+        box-shadow: 0 0 20px #6DD5FA
+    }
+    90%{
+        box-shadow: 0 0 10px #6DD5FA
+    }
+    100%{
+        box-shadow: 0 0 0px #6DD5FA
+    }
     from{
         transform: rotate(0deg);
         filter: hue-rotate(0deg);
-    }to{
+    }
+    to{
         transform: rotate(360deg);
         filter: hue-rotate(360deg);
     }

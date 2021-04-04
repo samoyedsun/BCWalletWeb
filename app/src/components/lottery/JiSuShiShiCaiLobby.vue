@@ -1,25 +1,25 @@
 <template>
     <div class="ji-su-shi-shi-cai-lobby">
         <div class="lobby-upper">
-            <div class="priv-issue">
+            <div class="prev-issue">
                 <div class="issue-number">
-                    <span>1223</span>期
+                    <span>{{prevIssue}}</span>期
                 </div>
                 <div class="balls-number">
-                    <span>1</span>
-                    <span>9</span>
-                    <span>2</span>
-                    <span>0</span>
-                    <span>3</span>
+                    <span>{{prevBalls[0]}}</span>
+                    <span>{{prevBalls[1]}}</span>
+                    <span>{{prevBalls[2]}}</span>
+                    <span>{{prevBalls[3]}}</span>
+                    <span>{{prevBalls[4]}}</span>
                 </div>
             </div>
             <div class="curr-issue">
                 <div class="issue-number">
-                    <span>1223</span>期
+                    <span>{{currIssue}}</span>期
                 </div>
                 <div class="balls-number">
-                    <span class="game-curr-state">距离开盘:</span>
-                    <span class="count-time-down">00.00</span>
+                    <span class="count-down-time-title">{{countDownTimeTitle}}</span>
+                    <span class="count-down-time-form">{{countDownTimeForm}}</span>
                 </div>
             </div>
         </div>
@@ -62,8 +62,21 @@
 export default {
     data () {
         return {
+            timer: null,
+            prevIssue: 0,
+            prevBalls: [
+                0, 0, 0, 0, 0
+            ],
+            currIssue: 0,
+            countDownTimeTitle: '下注中',
+            countDownTimeForm: '00:00',
             imgChipIcon: require('@/assets/chip-icon.png'),
             gameType: 'lottery_jsssc',
+            gameState: 'OPENING',
+            gameStateConst: {
+                OPENING: 'OPENING',
+                SEALING: 'SEALING'
+            },
             family: '两面',
             familyList: [
                 '两面',
@@ -252,23 +265,41 @@ export default {
     },
     components: {
     },
-    props: {
-        fatherMethod: {
-            type: Function,
-            default: null
-        }
-    },
     methods: {
+        formatSeconds (sec) {
+            let min = 0
+            if (sec > 60) {
+                min = Math.floor(sec / 60)
+                sec = sec % 60
+            }
+            min = (Array(2).join(0) + min).slice(-2)
+            sec = (Array(2).join(0) + sec).slice(-2)
+            return min + ':' + sec
+        },
         showFamily (family) {
             this.family = family
         },
-        clearAllSlotAmount () {
+        resetAllSlotAmount (kindSlotToAmount) {
+            if (this.gameState === this.gameStateConst.SEALING) {
+                this.setAllSlotAmount('-')
+            } else {
+                this.setAllSlotAmount(0)
+                for (let key in kindSlotToAmount) {
+                    let kindSlotList = key.split('-')
+                    let kind = kindSlotList[0]
+                    let slot = kindSlotList[1]
+                    let amount = kindSlotToAmount[key]
+                    this.updateSlotAmount(kind, slot, amount)
+                }
+            }
+        },
+        setAllSlotAmount (amount) {
             for (let i = 0, len = this.bettingSlotList.length; i < len; i++) {
                 let bettingSlot = this.bettingSlotList[i]
                 let slotList = bettingSlot.slots
                 for (let i = 0, len = slotList.length; i < len; i++) {
                     let slotInfo = slotList[i]
-                    slotInfo.amount = 0
+                    slotInfo.amount = amount
                 }
             }
         },
@@ -287,6 +318,7 @@ export default {
             return false
         },
         betting (kind, slot, amount) {
+            if (this.gameState === this.gameStateConst.SEALING) return
             var currChip = this.$parent.getCurrChip()
             var reqData = {
                 game_type: this.gameType,
@@ -294,25 +326,73 @@ export default {
                 slot: slot,
                 amount: amount + currChip
             }
-            this.$api.post('http://localhost:8203/lottery/betting', reqData).then((response) => {
-                let data = response.data
-                if (data.code === 10000) {
-                    this.clearAllSlotAmount()
-                    let kindSlotToAmount = data.data.kind_slot_to_amount
-                    for (let key in kindSlotToAmount) {
-                        let kindSlotList = key.split('-')
-                        let kind = kindSlotList[0]
-                        let slot = kindSlotList[1]
-                        let amount = kindSlotToAmount[key]
-                        this.updateSlotAmount(kind, slot, amount)
+            var that = this
+            var processRequest = function () {
+                that.$api.post('http://localhost:8203/lottery/betting', reqData).then((response) => {
+                    let result = response.data
+                    if (result.code === 10000) {
+                        that.resetAllSlotAmount(result.data.kind_slot_to_amount)
+                    } else if (result.code === 10201) {
+                        console.log('waiting 1s!')
+                        setTimeout(processRequest, 1000)
+                    } else {
+                        that.$toast.error(result.err)
                     }
-                } else {
-                    this.$toast.error(data.err)
-                }
-            }, (err) => {
-                this.$toast.error(err)
+                }, (err) => {
+                    that.$toast.error(err)
+                })
+            }
+            processRequest()
+        },
+        updateLotteryInfo (callBack) {
+            var reqData = {
+                game_type: this.gameType
+            }
+            var that = this
+            var processRequest = function () {
+                that.$api.post('http://localhost:8203/lottery/get_lottery_info', reqData).then((response) => {
+                    let result = response.data
+                    if (result.code === 10000) {
+                        callBack(result.data)
+                    } else if (result.code === 10201) {
+                        console.log('waiting 1s!')
+                        setTimeout(processRequest, 1000)
+                    } else {
+                        that.$toast.error(result.err)
+                    }
+                }, (err) => {
+                    that.$toast.error(err)
+                })
+            }
+            processRequest()
+        },
+        processUpdateLotteryInfoLoop () {
+            this.updateLotteryInfo((data) => {
+                this.prevIssue = data.prev_issue
+                this.prevBalls = data.prev_balls
+                this.currIssue = data.curr_issue
+                this.countDownTimeTitle = data.count_down_time_title
+                let countDownTime = data.count_down_time
+                this.countDownTimeForm = this.formatSeconds(countDownTime)
+                this.gameState = data.game_state
+                this.resetAllSlotAmount(data.kind_slot_to_amount)
+
+                this.timer = setInterval(() => {
+                    countDownTime--
+                    this.countDownTimeForm = this.formatSeconds(countDownTime)
+                    if (countDownTime <= 0) {
+                        clearInterval(this.timer)
+                        this.processUpdateLotteryInfoLoop()
+                    }
+                }, 1000)
             })
         }
+    },
+    mounted () {
+        this.processUpdateLotteryInfoLoop()
+    },
+    beforeDestroy () {
+        clearInterval(this.timer)
     }
 }
 </script>
@@ -328,37 +408,36 @@ export default {
 .lobby-upper{
     width: 100%;
     height: 20%;
-    background-color: #191925;
+    background-color: #2a2c45;
     box-shadow: inset 0px 0px 0px 1px burlywood;
 }
-.lobby-upper .priv-issue{
+.lobby-upper .prev-issue{
     width: 100%;
     height: 50%;
 }
-.lobby-upper .priv-issue .issue-number{
+.lobby-upper .prev-issue .issue-number{
     float: left;
-    width: 20%;
+    width: 30%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: yellowgreen;
+    color: #53f708;
 }
-.lobby-upper .priv-issue .issue-number span{
-    color: green;
+.lobby-upper .prev-issue .issue-number span{
+    color: white;
 }
-.lobby-upper .priv-issue .balls-number{
+.lobby-upper .prev-issue .balls-number{
     float: right;
-    width: 80%;
+    width: 70%;
     height: 100%;
     display: flex;
     align-items: center;
 }
-.lobby-upper .priv-issue .balls-number span{
+.lobby-upper .prev-issue .balls-number span{
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    border: 2px solid yellowgreen;
+    border: 2px solid #53f708;
     border-radius: 50%;
     color: white;
     box-shadow: inset 0px 0px 1px 0px burlywood;
@@ -369,28 +448,33 @@ export default {
 }
 .lobby-upper .curr-issue .issue-number{
     float: left;
-    width: 20%;
+    width: 30%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: yellowgreen;
+    color: #53f708;
 }
 .lobby-upper .curr-issue .issue-number span{
-    color: green;
+    color: white;
 }
 .lobby-upper .curr-issue .balls-number{
     float: right;
-    width: 80%;
+    width: 70%;
     height: 100%;
     display: flex;
     align-items: center;
 }
-.lobby-upper .curr-issue .balls-number .game-curr-state{
-    margin-right: 10px;
+.lobby-upper .curr-issue .balls-number .count-down-time-title{
+    margin-right: 5px;
+    width: 60px;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 50px 0px #53f708;
 }
-.lobby-upper .curr-issue .balls-number .count-time-down{
-    margin-right: 10px;
+.lobby-upper .curr-issue .balls-number .count-down-time-form{
+    margin-right: 5px;
+    width: 60px;
+    color: #53f708;
+    font-weight: bold;
 }
 .lobby-lower{
     width: 100%;

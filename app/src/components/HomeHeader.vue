@@ -2,7 +2,7 @@
     <div class="home-header">
         <div class="online">
             <span>在线:</span>
-            <span>9999</span>
+            <span>{{onlineAmount}}</span>
         </div>
         <div class="login-btn">
             <router-link class="login-btn-link" to="/login">
@@ -16,11 +16,19 @@
 export default {
     data () {
         return {
+            timer: null,
+            onlineAmount: 0
         }
     },
     methods: {
     },
-    created () {
+    mounted () {
+        this.timer = setInterval(() => {
+            this.onlineAmount = 8392 + Math.ceil(Math.random() * 10)
+        }, 1000)
+    },
+    beforeDestroy () {
+        clearInterval(this.timer)
     }
 }
 </script>

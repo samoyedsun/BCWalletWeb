@@ -30,11 +30,11 @@ export default {
             }
         },
         clickImg (index) {
-            this.n = index // 显示当前点击的图片
+            this.n = index
         }
     },
     beforeDestroy () {
-        clearInterval(this.timer) // 清除定时器
+        clearInterval(this.timer)
     }
 }
 </script>

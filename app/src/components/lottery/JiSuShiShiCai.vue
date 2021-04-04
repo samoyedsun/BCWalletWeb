@@ -2,7 +2,7 @@
     <div class="ji-su-shi-shi-cai">
         <lottery-header />
         <ji-su-shi-shi-cai-lobby />
-        <lottery-bottom ref = "lotteryBottom" />
+        <lottery-bottom ref="lotteryBottom" />
     </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
     },
     data () {
         return {
-            hello000000dfsdf: 232342
         }
     },
     methods: {

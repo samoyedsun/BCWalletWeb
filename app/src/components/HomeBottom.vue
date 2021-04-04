@@ -48,7 +48,7 @@ export default {
     background-color: #2a2c45;
 }
 .isActive{
-    color:rgb(240, 4, 4);
+    color: burlywood;
 }
 .tab-item{
     flex:1;
@@ -64,7 +64,7 @@ export default {
 }
 a{
     text-decoration:none;
-    color:burlywood;
+    color: white;
 }
 a,a:hover,a:active,a:visited,a:link,a:focus{
     -webkit-tap-highlight-color:rgba(9, 230, 1, 0.945);
