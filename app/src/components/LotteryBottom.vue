@@ -1,6 +1,7 @@
 <template>
     <div class="home-bottom">
         <div class="bottom-base">
+            <!--
             <div class="clear-btn">
                 <router-link class="login-btn-link" to="/login">
                     <span>清空</span>
@@ -16,6 +17,7 @@
                     <span>明细</span>
                 </router-link>
             </div>
+            -->
         </div>
         <div class="bottom-chip">
             <img class="tab-item" :class="currChip==item.value?'tab-item-selected':''" v-for="(item, index) in chipList" :key="index" :src="item.img" v-on:click="setCurrChip(item.value)">
@@ -115,14 +117,6 @@ export default {
     }
     100%{
         box-shadow: 0 0 0px #6DD5FA
-    }
-    from{
-        transform: rotate(0deg);
-        filter: hue-rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
-        filter: hue-rotate(360deg);
     }
 }
 .bottom-base{

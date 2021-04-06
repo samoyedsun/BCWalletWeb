@@ -328,7 +328,7 @@ export default {
             }
             var that = this
             var processRequest = function () {
-                that.$api.post('http://localhost:8203/lottery/betting', reqData).then((response) => {
+                that.$api.post('/lottery/betting', reqData).then((response) => {
                     let result = response.data
                     if (result.code === 10000) {
                         that.resetAllSlotAmount(result.data.kind_slot_to_amount)
@@ -350,7 +350,7 @@ export default {
             }
             var that = this
             var processRequest = function () {
-                that.$api.post('http://localhost:8203/lottery/get_lottery_info', reqData).then((response) => {
+                that.$api.post('/lottery/get_lottery_info', reqData).then((response) => {
                     let result = response.data
                     if (result.code === 10000) {
                         callBack(result.data)

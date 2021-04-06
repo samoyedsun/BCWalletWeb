@@ -91,7 +91,7 @@ export default {
                 if (!ret.ok) {
                     return this.$toast.error(ret.err)
                 }
-                this.$api.post('http://localhost:8203/user/login', reqData).then((response) => {
+                this.$api.post('/user/login', reqData).then((response) => {
                     let data = response.data
                     if (data.code === 20000) {
                         this.$toast.success(data.err)
@@ -124,7 +124,7 @@ export default {
                     let err = '两次密码不一致!'
                     return this.$toast.error(err)
                 }
-                this.$api.post('http://localhost:8203/user/register', reqData).then((response) => {
+                this.$api.post('/user/register', reqData).then((response) => {
                     let data = response.data
                     if (data.code === 20000) {
                         this.$toast.success(data.err)

@@ -144,7 +144,7 @@ export default {
             var reqData = {}
             var that = this
             var processRequest = function () {
-                that.$api.post('http://localhost:8203/lottery/get_lottery_state_list', reqData).then((response) => {
+                that.$api.post('/lottery/get_lottery_state_list', reqData).then((response) => {
                     let result = response.data
                     if (result.code === 10000) {
                         callBack(result.data)
