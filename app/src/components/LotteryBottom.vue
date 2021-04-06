@@ -74,10 +74,12 @@ export default {
 .tab-item{
     margin: 0% 2% 0% 2%;
     width: 10%;
+    height: 100%;
 }
 .tab-item-selected{
     margin: 0% 2% 0% 2%;
     width: 12%;
+    height: 100%;
     border-radius: 50%;
     animation: curr-chip 2s linear infinite;
 }
