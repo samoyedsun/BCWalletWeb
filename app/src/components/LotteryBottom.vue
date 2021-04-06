@@ -1,5 +1,5 @@
 <template>
-    <div class="home-bottom">
+    <div class="lottery-bottom">
         <div class="bottom-base">
             <!--
             <div class="clear-btn">
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style>
-.home-bottom{
+.lottery-bottom{
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -65,21 +65,19 @@ export default {
     background-color: rgba(42,44,69,0);
 }
 .bottom-chip{
-    display: flex;
-    flex: 1;
     position: absolute;
     top: 0;
     width: 100%;
-    height: 50px;
+    height: 50%;
     background-color: rgba(255,255,255,0);
 }
 .tab-item{
-    width: 100%;
-    height: 100%;
+    margin: 0% 2% 0% 2%;
+    width: 10%;
 }
 .tab-item-selected{
-    width: 100%;
-    height: 100%;
+    margin: 0% 2% 0% 2%;
+    width: 12%;
     border-radius: 50%;
     animation: curr-chip 2s linear infinite;
 }
@@ -123,7 +121,7 @@ export default {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 75px;
+    height: 75%;
     border-radius: 14px 14px 0 0;
     box-shadow: inset 0 1px 10px 0 burlywood;
     background-color: rgba(42,44,69,1);

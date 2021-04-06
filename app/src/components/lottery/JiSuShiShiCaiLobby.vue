@@ -490,7 +490,7 @@ export default {
     margin-bottom:1px;
     width: 100%;
     height: 80px;
-    text-align: left;
+    text-align: center;
     line-height: 80px;
     color: black;
     background-color: burlywood;
