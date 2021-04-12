@@ -22,7 +22,7 @@ export default {
     },
     methods: {
     },
-    mounted () {
+    created () {
         this.timer = setInterval(() => {
             this.onlineAmount = 8392 + Math.ceil(Math.random() * 10)
         }, 1000)

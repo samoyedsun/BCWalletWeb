@@ -9,7 +9,7 @@ import LotteryJiSuShiShiCai from '@/components/lottery/JiSuShiShiCai'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/lottery/jisushishicai',
@@ -59,3 +59,10 @@ export default new Router({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    window.document.title = to.meta.title
+    next()
+})
+
+export default router

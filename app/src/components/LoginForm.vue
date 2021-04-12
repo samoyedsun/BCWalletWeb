@@ -74,8 +74,7 @@ export default {
             }
         },
         onSubmit () {
-            let loginPageState = this.$parent.getState()
-            if (loginPageState === 1) { // 登陆
+            if (this.$parent.isSignInPage()) { // 登陆
                 let userNameChil = this.$refs.userName
                 let passwordChil = this.$refs.password
 
@@ -93,16 +92,16 @@ export default {
                 }
                 this.$api.post('/user/login', reqData).then((response) => {
                     let data = response.data
-                    if (data.code === 20000) {
+                    if (data.code === 10000) {
                         this.$toast.success(data.err)
+                        this.$router.push({ path: '/home' })
                     } else {
                         this.$toast.error(data.err)
                     }
                 }, (err) => {
-                    this.$toast.success(err)
+                    this.$toast.error(err)
                 })
-                return this.$router.push({ path: '/home' })
-            } else if (loginPageState === 2) { // 注册
+            } else if (this.$parent.isSignUpPage()) { // 注册
                 let userNameChil = this.$refs.userName
                 let passwordChil = this.$refs.password
                 let password2Chil = this.$refs.password2
@@ -126,8 +125,9 @@ export default {
                 }
                 this.$api.post('/user/register', reqData).then((response) => {
                     let data = response.data
-                    if (data.code === 20000) {
+                    if (data.code === 10000) {
                         this.$toast.success(data.err)
+                        this.$parent.switchState()
                     } else {
                         this.$toast.error(data.err)
                     }

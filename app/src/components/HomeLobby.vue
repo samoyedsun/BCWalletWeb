@@ -154,8 +154,8 @@ export default {
                     } else {
                         that.$toast.error(result.err)
                     }
-                }, (err) => {
-                    that.$toast.error(err)
+                }, (result) => {
+                    // that.$toast.error(result.err)
                 })
             }
             processRequest()
@@ -185,7 +185,7 @@ export default {
             })
         }
     },
-    mounted () {
+    created () {
         this.processUpdateLotteryStateListLoop()
     },
     beforeDestroy () {

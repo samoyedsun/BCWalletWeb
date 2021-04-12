@@ -1,7 +1,7 @@
 <template>
     <div class="wallet">
         <home-header />
-        我是钱包
+        开发中......
         <home-bottom />
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
         return {
         }
     },
-    mounted () {
+    created () {
 
     }
 }

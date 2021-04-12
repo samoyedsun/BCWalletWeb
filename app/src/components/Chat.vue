@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <home-header />
-        我是聊天页
+        开发中......
         <home-bottom />
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
         return {
         }
     },
-    mounted () {
+    created () {
 
     }
 }
