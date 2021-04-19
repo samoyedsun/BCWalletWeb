@@ -1,23 +1,19 @@
 <template>
     <div class="lottery-bottom">
         <div class="bottom-base">
-            <!--
-            <div class="clear-btn">
-                <router-link class="login-btn-link" to="/login">
-                    <span>清空</span>
-                </router-link>
-            </div>
             <div class="chat-btn">
                 <router-link class="login-btn-link" to="/login">
                     <span>聊天</span>
                 </router-link>
+            </div>
+            <div class="money">
+                <span><img :src="imgChipIcon"/>{{money}}</span>
             </div>
             <div class="detail-btn">
                 <router-link class="login-btn-link" to="/login">
                     <span>明细</span>
                 </router-link>
             </div>
-            -->
         </div>
         <div class="bottom-chip">
             <img class="tab-item" :class="currChip==item.value?'tab-item-selected':''" v-for="(item, index) in chipList" :key="index" :src="item.img" v-on:click="setCurrChip(item.value)">
@@ -29,7 +25,9 @@
 export default {
     data () {
         return {
-            currChip: null,
+            money: 0,
+            currChip: 0,
+            imgChipIcon: require('@/assets/chip-icon.png'),
             chipList: [
                 {value: 1, img: require('@/assets/chip1.png')},
                 {value: 5, img: require('@/assets/chip5.png')},
@@ -47,11 +45,16 @@ export default {
         },
         getCurrChip () {
             return this.currChip
+        },
+        updateMoney (money) {
+            this.money = money
         }
     },
     created () {
         let currChip = 1
         this.setCurrChip(currChip)
+        let money = 0
+        this.updateMoney(money)
     }
 }
 </script>
@@ -131,25 +134,34 @@ export default {
 .detail-btn{
     position: absolute;
     bottom: 10px;
-    right: 10%;
+    right: 5%;
     width: 20%;
     height: 30px;
     border-radius: 5px;
     background-color: burlywood;
 }
-.clear-btn{
+.money{
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     bottom: 10px;
-    left: 40%;
-    width: 20%;
+    left: 25%;
+    width: 50%;
     height: 30px;
-    border-radius: 5px;
-    background-color: burlywood;
+}
+.money span{
+    font-size: 14px;
+    color: white;
+}
+.money span img{
+    width: 14px;
+    height: 14px;
 }
 .chat-btn{
     position: absolute;
     bottom: 10px;
-    left: 10%;
+    left: 5%;
     width: 20%;
     height: 30px;
     border-radius: 5px;

@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/': {
-            target: 'http://120.77.208.251:8203',
-            //target: 'http://localhost:8203',    //设置你调用的接口域名和端口号 别忘了加http
+            //target: 'http://120.77.208.251:8203',
+            target: 'http://localhost:8203',    //设置你调用的接口域名和端口号 别忘了加http
             changeOrigin: true
         }
     },

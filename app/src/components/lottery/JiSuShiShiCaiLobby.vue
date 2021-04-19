@@ -376,6 +376,7 @@ export default {
                 this.countDownTimeForm = this.formatSeconds(countDownTime)
                 this.gameState = data.game_state
                 this.resetAllSlotAmount(data.kind_slot_to_amount)
+                this.$parent.updateMoney(data.money)
 
                 this.timer = setInterval(() => {
                     countDownTime--

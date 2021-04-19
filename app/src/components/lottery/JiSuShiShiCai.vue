@@ -23,6 +23,9 @@ export default {
     methods: {
         getCurrChip () {
             return this.$refs.lotteryBottom.getCurrChip()
+        },
+        updateMoney (money) {
+            return this.$refs.lotteryBottom.updateMoney(money)
         }
     }
 }
